@@ -11,6 +11,14 @@
   </head>
 
   <body>
+    <!-- Prevent flash of wrong theme -->
+    <script>
+      (function () {
+        var s = localStorage.getItem('orb_theme');
+        var t = s || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>

@@ -5,7 +5,7 @@ export interface User {
   first_surname: string;
   second_surname?: string;
   email: string;
-  created_at: string;
+  created_at?: string;
 }
 
 export interface Role {
@@ -25,14 +25,14 @@ export interface Store {
   id: string;
   name: string;
   address?: string;
-  created_at: string;
+  created_at?: string;
 }
 
 export interface Device {
   id: string;
   store_id: string;
   name: string;
-  created_at: string;
+  created_at?: string;
 }
 
 // Catalog
@@ -85,6 +85,7 @@ export interface SaleResponse {
   folio?: string;
   total: number;
   status: string;
+  created_at: string;
 }
 
 export interface SaleItemResponse {
@@ -99,6 +100,7 @@ export interface PaymentResponse {
   id: string;
   method: string;
   amount: number;
+  reference?: string;
 }
 
 export interface SaleDetailResponse {

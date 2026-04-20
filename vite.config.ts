@@ -10,16 +10,16 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [vue()],
     define: {
-      __API_URL__: JSON.stringify(env.BACKEND_API_URL ?? "http://localhost:8000"),
+      __API_URL__: JSON.stringify(
+        env.BACKEND_API_URL ?? "http://localhost:8080",
+      ),
     },
     clearScreen: false,
     server: {
       port: 1420,
       strictPort: true,
       host: host || false,
-      hmr: host
-        ? { protocol: "ws", host, port: 1421 }
-        : undefined,
+      hmr: host ? { protocol: "ws", host, port: 1421 } : undefined,
       watch: { ignored: ["**/src-tauri/**"] },
     },
   };

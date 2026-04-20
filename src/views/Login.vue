@@ -68,8 +68,8 @@ async function submit() {
   justify-content: center;
   background: var(--bg);
   background-image:
-    radial-gradient(ellipse at 20% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(59, 130, 246, 0.06) 0%, transparent 40%);
+    radial-gradient(ellipse at 20% 50%, var(--primary-glow) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 20%, var(--primary-glow) 0%, transparent 45%);
   padding: 20px;
 }
 
@@ -80,7 +80,7 @@ async function submit() {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 40px 36px;
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-lg);
 }
 
 .login-logo {

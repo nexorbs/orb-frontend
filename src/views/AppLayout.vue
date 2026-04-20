@@ -3,18 +3,22 @@ import { computed } from "vue";
 import { useRoute, useRouter, RouterView } from "vue-router";
 import { useAuthStore } from "../stores/auth";
 import { usePosStore } from "../stores/pos";
+import { useTheme } from "../composables/useTheme";
 
 const auth = useAuthStore();
 const pos = usePosStore();
 const route = useRoute();
 const router = useRouter();
+const { theme, toggle: toggleTheme } = useTheme();
 
 const nav = [
   { path: "/app/pos", label: "Punto de Venta", icon: "⊕" },
   { path: "/app/cash", label: "Caja", icon: "◈" },
   { path: "/app/sales", label: "Ventas", icon: "◇" },
   { path: "/app/products", label: "Productos", icon: "▣" },
+  { path: "/app/categories", label: "Categorías", icon: "⊞" },
   { path: "/app/inventory", label: "Inventario", icon: "◫" },
+  { path: "/app/reports", label: "Reportes", icon: "◌" },
   { path: "/app/customers", label: "Clientes", icon: "◉" },
   { path: "/app/settings", label: "Configuración", icon: "◎" },
 ];
@@ -69,7 +73,17 @@ const sessionStatus = computed(() => pos.activeSession?.status === "open");
             <div class="user-email text-sm text-muted" style="font-size:11px">{{ auth.user?.email ?? "–" }}</div>
           </div>
         </div>
-        <button class="btn btn-ghost btn-sm btn-icon" @click="logout" title="Cerrar sesión">⏻</button>
+        <div class="footer-actions">
+          <button
+            class="btn btn-ghost btn-sm btn-icon theme-btn"
+            @click="toggleTheme"
+            :title="theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+          >
+            <span v-if="theme === 'dark'">☀</span>
+            <span v-else>☾</span>
+          </button>
+          <button class="btn btn-ghost btn-sm btn-icon" @click="logout" title="Cerrar sesión">⏻</button>
+        </div>
       </div>
     </aside>
 
@@ -199,7 +213,18 @@ const sessionStatus = computed(() => pos.activeSession?.status === "open");
   border-top: 1px solid var(--border);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+}
+
+.footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.theme-btn {
+  font-size: 14px;
 }
 
 .user-row {

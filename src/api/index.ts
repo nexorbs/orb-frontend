@@ -39,10 +39,14 @@ export const catalogApi = {
   listCategories: () => api.get<Category[]>("/categories"),
   createCategory: (name: string) => api.post<Category>("/categories", { name }),
   listProducts: () => api.get<Product[]>("/products"),
-  createProduct: (data: { name: string; barcode?: string; description?: string; cost?: number }) =>
+  createProduct: (data: { name: string; barcode?: string; description?: string; cost?: number; category_ids?: string[] }) =>
     api.post<Product>("/products", data),
+  updateProduct: (productId: string, data: { name?: string; barcode?: string; description?: string; cost?: number }) =>
+    api.put<Product>(`/products/${productId}`, data),
   assignCategory: (productId: string, categoryId: string) =>
     api.post<void>(`/products/${productId}/categories/${categoryId}`),
+  removeCategory: (productId: string, categoryId: string) =>
+    api.delete<void>(`/products/${productId}/categories/${categoryId}`),
   setPrice: (productId: string, storeId: string, price: number) =>
     api.post<ProductPrice>(`/products/${productId}/stores/${storeId}/price`, { price }),
 };
@@ -62,7 +66,7 @@ export const salesApi = {
   create: (data: {
     store_id: string; user_id: string; device_id: string; folio?: string;
     items: { product_id: string; quantity: number; price: number }[];
-    payments: { method: string; amount: number }[];
+    payments: { method: string; amount: number; reference?: string }[];
   }) => api.post<SaleDetailResponse>("/sales", data),
   listByStore: (storeId: string) => api.get<SaleResponse[]>(`/sales/stores/${storeId}`),
   getDetail: (saleId: string) => api.get<SaleDetailResponse>(`/sales/${saleId}`),

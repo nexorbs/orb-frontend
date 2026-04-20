@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { salesApi } from "../api";
+import { fmtDate } from "../utils/date";
 import type { SaleResponse, SaleDetailResponse } from "../api/types";
 import { usePosStore } from "../stores/pos";
 
@@ -81,6 +82,7 @@ function statusBadge(s: string) {
               <th>Folio</th>
               <th>Estado</th>
               <th>Total</th>
+              <th>Fecha</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -91,6 +93,7 @@ function statusBadge(s: string) {
               </td>
               <td><span class="badge" :class="statusBadge(s.status)">{{ s.status }}</span></td>
               <td class="mono" style="font-weight:700">{{ fmt(s.total) }}</td>
+              <td class="text-muted" style="font-size:12px">{{ fmtDate(s.created_at) }}</td>
               <td>
                 <button class="btn btn-ghost btn-sm" @click="viewDetail(s.id)">Ver detalle</button>
               </td>
